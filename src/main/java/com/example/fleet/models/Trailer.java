@@ -4,7 +4,6 @@ import com.sun.istack.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,8 +13,8 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
-public class Trailer extends Machine {
+@EqualsAndHashCode
+public class Trailer {
 
     @Id
     @GeneratedValue
@@ -23,5 +22,8 @@ public class Trailer extends Machine {
 
     @NotNull
     private BigDecimal maxWeight;
+
+    @NotBlank
+    protected String model;
 
 }
