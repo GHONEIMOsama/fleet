@@ -3,6 +3,7 @@ package com.example.fleet.controllers;
 import com.example.fleet.models.Driver;
 import com.example.fleet.repositories.DriverRepository;
 import com.example.fleet.requests.DriverCreateRequest;
+import com.example.fleet.requests.DriverPatchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +32,8 @@ public class DriverController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Driver> findOne(@PathVariable String id) {
-        Driver driver = driverRepository.findById(UUID.fromString(id)).orElseThrow(() -> {
+    public ResponseEntity<Driver> findOne(@PathVariable UUID id) {
+        Driver driver = driverRepository.findById(id).orElseThrow(() -> {
             throw new EntityNotFoundException(String.format(UNFOUND_DRIVER_MESSAGE, id));
         });
         return new ResponseEntity<>(driver, HttpStatus.OK);
@@ -44,6 +45,18 @@ public class DriverController {
         driver.setName(driverCreateRequest.getName());
         driver = driverRepository.save(driver);
         return new ResponseEntity<>(driver, HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable UUID id, @RequestBody DriverPatchRequest driverPatchRequest) {
+        Driver driver = driverRepository.findById(id).orElseThrow(() -> {
+            throw new EntityNotFoundException(String.format(UNFOUND_DRIVER_MESSAGE, id));
+        });
+        if (driverPatchRequest.getName() != null) {
+            driver.setName(driverPatchRequest.getName());
+        }
+        driverRepository.save(driver);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
