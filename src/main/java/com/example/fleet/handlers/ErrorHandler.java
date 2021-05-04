@@ -1,5 +1,6 @@
 package com.example.fleet.handlers;
 
+import com.example.fleet.exceptions.ExceedWeightException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -22,5 +23,11 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> entityNotFoundExceptionHandler(RuntimeException runtimeException, WebRequest webRequest) {
         LOG.info(runtimeException.getMessage());
         return handleExceptionInternal(runtimeException, runtimeException.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, webRequest);
+    }
+
+    @ExceptionHandler(value = {ExceedWeightException.class})
+    protected ResponseEntity<Object> ExceedWeightExceptionHandler(RuntimeException runtimeException, WebRequest webRequest) {
+        LOG.info(runtimeException.getMessage());
+        return handleExceptionInternal(runtimeException, runtimeException.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, webRequest);
     }
 }
