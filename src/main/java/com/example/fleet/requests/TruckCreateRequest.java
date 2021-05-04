@@ -3,6 +3,7 @@ package com.example.fleet.requests;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter
@@ -11,9 +12,9 @@ public class TruckCreateRequest {
     @NotBlank
     private String label;
 
-    @NotBlank
+    @NotNull
     private UUID tractorId;
 
-    @NotBlank
+    @NotNull
     private UUID trailerId;
 }
