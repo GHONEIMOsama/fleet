@@ -18,9 +18,10 @@ public class Expedition {
     @GeneratedValue
     private UUID id;
 
+    @Column(name = "start_time")
     private ZonedDateTime startTime;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private Driver driver;
 
     @OneToOne

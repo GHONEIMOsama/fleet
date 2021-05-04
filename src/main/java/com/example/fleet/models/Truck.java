@@ -4,10 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
@@ -24,9 +21,9 @@ public class Truck {
     @NotBlank
     private String label;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER , optional = false)
     private Tractor tractor;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER , optional = false)
     private Trailer trailer;
 }

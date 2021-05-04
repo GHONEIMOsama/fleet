@@ -24,6 +24,4 @@ public class Driver {
     @NotBlank
     private String name;
 
-    @OneToOne
-    private Expedition expedition;
 }

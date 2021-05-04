@@ -21,12 +21,10 @@ public class Trailer {
     private UUID id;
 
     @NotNull
+    @Column(name = "max_weight")
     private BigDecimal maxWeight;
 
     @NotBlank
     private String model;
-
-    @OneToOne
-    private Truck truck;
 
 }
