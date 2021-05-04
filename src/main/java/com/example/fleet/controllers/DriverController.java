@@ -4,14 +4,12 @@ import com.example.fleet.models.Driver;
 import com.example.fleet.repositories.DriverRepository;
 import com.example.fleet.requests.DriverCreateRequest;
 import com.example.fleet.requests.DriverPatchRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -52,7 +50,7 @@ public class DriverController {
         Driver driver = driverRepository.findById(id).orElseThrow(() -> {
             throw new EntityNotFoundException(String.format(UNFOUND_DRIVER_MESSAGE, id));
         });
-        if (driverPatchRequest.getName() != null) {
+        if (driverPatchRequest.getName() != null && !driverPatchRequest.getName().isBlank()) {
             driver.setName(driverPatchRequest.getName());
         }
         driverRepository.save(driver);
