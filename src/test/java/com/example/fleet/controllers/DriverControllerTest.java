@@ -42,6 +42,8 @@ public class DriverControllerTest {
     private final static String BASE_URL = "/drivers";
 
     private static UUID driverId;
+    private static final UUID BAD_ID = UUID.randomUUID();
+    private static final String NON_UUID_ID = "123-456-789";
     private final static String DRIVER_NAME = "driver";
     private final static String DRIVER_NAME2 = "driver2";
     private final static String NAME = "name";
@@ -73,6 +75,12 @@ public class DriverControllerTest {
     }
 
     @Test
+    public void findOneWithUnknownId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(String.format("%s/%s", BASE_URL, BAD_ID)))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
     public void findAll() throws Exception {
         Collection<String> driverNames = new ArrayList<>();
         driverNames.add(DRIVER_NAME);
@@ -94,6 +102,20 @@ public class DriverControllerTest {
     }
 
     @Test
+    public void createWithNoName() throws Exception {
+        String requestBody = "{}";
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    public void createWithBlankName() throws Exception {
+        String requestBody = "{ \"name\": \"  \" }";
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
     public void update() throws Exception {
         String requestBody = String.format("{ \"name\": \"%s\" }", NAME);
         mockMvc.perform(MockMvcRequestBuilders.patch(String.format("%s/%s", BASE_URL, driverId)).contentType(MediaType.APPLICATION_JSON).content(requestBody))
@@ -106,5 +128,11 @@ public class DriverControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete(String.format("%s/%s", BASE_URL, driverId)))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
         Assertions.assertFalse(driverRepository.findById(driverId).isPresent());
+    }
+
+    @Test
+    public void deleteWithNonUUIDId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete(String.format("%s/%s", BASE_URL, NON_UUID_ID)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 }
