@@ -41,7 +41,7 @@ public class ExpeditionServiceImpl implements ExpeditionService {
 
 
     @Override
-    public Expedition create(ExpeditionCreateRequest expeditionCreateRequest) throws ExceedWeightException {
+    public Expedition create(ExpeditionCreateRequest expeditionCreateRequest) {
         Expedition expedition = new Expedition();
         Driver driver = driverRepository.findById(expeditionCreateRequest.getDriverId()).orElseThrow(() -> {
             throw new EntityNotFoundException(String.format(UNFOUND_DRIVER_MESSAGE, expeditionCreateRequest.getDriverId()));
@@ -53,12 +53,13 @@ public class ExpeditionServiceImpl implements ExpeditionService {
         Cargo cargo = cargoRepository.findById(expeditionCreateRequest.getCargoId()).orElseThrow(() -> {
             throw new EntityNotFoundException(String.format(UNFOUND_CARGO_MESSAGE, expeditionCreateRequest.getCargoId()));
         });
-        if (truck.getTrailer().getMaxWeight().compareTo(cargo.getWeight()) < 1) {
+        if (truck.getTrailer().getMaxWeight().compareTo(cargo.getWeight()) > -1) {
             expedition.setTruck(truck);
             expedition.setCargo(cargo);
         } else {
             throw new ExceedWeightException(String.format(EXCEED_WEIGHT_MESSAGE, cargo.getWeight(), truck.getTrailer().getMaxWeight()));
         }
+        expedition.setStartTime(expeditionCreateRequest.getStartTime());
         return expeditionRepository.save(expedition);
     }
 

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface ExpeditionService {
 
-    Expedition create(ExpeditionCreateRequest expeditionCreateRequest) throws ExceedWeightException;
+    Expedition create(ExpeditionCreateRequest expeditionCreateRequest);
 
     void update(UUID id, ExpeditionPatchRequest expeditionPatchRequest);
 
