@@ -46,7 +46,7 @@ public class ExpeditionController {
     }
 
     @PostMapping
-    public ResponseEntity<Expedition> create(@RequestBody @Valid ExpeditionCreateRequest expeditionCreateRequest) throws ExceedWeightException {
+    public ResponseEntity<Expedition> create(@RequestBody @Valid ExpeditionCreateRequest expeditionCreateRequest) {
         return new ResponseEntity<>(expeditionService.create(expeditionCreateRequest), HttpStatus.CREATED);
     }
 
