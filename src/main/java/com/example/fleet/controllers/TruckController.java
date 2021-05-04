@@ -51,6 +51,7 @@ public class TruckController {
     @PostMapping
     public ResponseEntity<Truck> create(@RequestBody @Valid TruckCreateRequest truckCreateRequest) {
         Truck truck = new Truck();
+        truck.setLabel(truckCreateRequest.getLabel());
         Tractor tractor = tractorRepository.findById(truckCreateRequest.getTractorId()).orElseThrow(() -> {
             throw new EntityNotFoundException(String.format(UNFOUND_TRACTOR_MESSAGE, truckCreateRequest.getTractorId()));
         });
