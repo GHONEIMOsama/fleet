@@ -25,4 +25,7 @@ public class Cargo {
     @NotNull
     private BigDecimal weight;
 
+    @OneToOne
+    private Expedition expedition;
+
 }

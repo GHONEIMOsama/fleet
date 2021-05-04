@@ -24,6 +24,9 @@ public class Trailer {
     private BigDecimal maxWeight;
 
     @NotBlank
-    protected String model;
+    private String model;
+
+    @OneToOne
+    private Truck truck;
 
 }

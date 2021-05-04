@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
@@ -21,5 +22,8 @@ public class Tractor {
     private UUID id;
 
     @NotBlank
-    protected String model;
+    private String model;
+
+    @OneToOne
+    private Truck truck;
 }

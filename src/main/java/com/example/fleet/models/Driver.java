@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
@@ -22,4 +23,7 @@ public class Driver {
 
     @NotBlank
     private String name;
+
+    @OneToOne
+    private Expedition expedition;
 }
