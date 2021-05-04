@@ -17,13 +17,13 @@ public class ExpeditionCreateRequest {
     @NotNull
     private ZonedDateTime startTime;
 
-    @NotBlank
+    @NotNull
     private UUID driverId;
 
-    @NotBlank
+    @NotNull
     private UUID truckId;
 
-    @NotBlank
+    @NotNull
     private UUID cargoId;
 
 }
