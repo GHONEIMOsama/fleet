@@ -1,0 +1,150 @@
+swagger: "2.0"
+info:
+  description: "The documentation for the fleet project api."
+  version: "1.0.0"
+  title: "Fleet"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "osama.ghoneim.etu@uninv-lille.fr"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/v2"
+tags:
+- name: "cargo"
+  description: "Everything about your Cargo"
+schemes:
+- "https"
+- "http"
+paths:
+  /cargoes:
+    get:
+      tags:
+      - "cargo"
+      summary: "Find all cargoes"
+      description: "Find all cargoes"
+      operationId: "getCargoes"
+      responses:
+        "200":
+          description: "Successfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Cargo"
+    post:
+      tags:
+      - "cargo"
+      summary: "Create a new cargo"
+      description: "Create a new cargo"
+      operationId: "postCargo"
+      responses:
+        "201":
+          description: "Successfull operation"
+          schema:
+            $ref: "#/definitions/Cargo"
+  /cargoes/{id}:
+    parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          type: "string"
+    get:
+      tags:
+      - "cargo"
+      summary: "Find cargo by Id"
+      description: "Find cargo by Id"
+      operationId: "getCargoById"
+      responses:
+        "200":
+          description: "A Cargo"
+          schema:
+            $ref: "#/definitions/Cargo"
+    patch:
+      tags:
+      - "cargo"
+      summary: "Update a cargo"
+      description: "Update a cargo"
+      operationId: "updateCargo"
+      responses:
+        "204":
+          description: "The ressource was updated successufully"
+    delete:
+      tags:
+      - "cargo"
+      summary: "Delete a cargo"
+      description: "Delete a cargo"
+      operationId: "deleteCargo"
+      responses:
+        "204":
+          description: "The ressource was deleted successfully"
+
+definitions:
+  Cargo:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "b62ae82e-d1cc-496a-98e9-761c29a45328"
+      weight:
+        type: "number"
+        example: 50
+      expedition:
+        $ref: "#/definitions/Expedition"
+  Driver:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "b62ae82e-d1cc-496a-98e9-761c29a45328"
+      name:
+        type: "string"
+        example: "Charle"
+  Expedition:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "b62ae82e-d1cc-496a-98e9-761c29a45328"
+      startTime:
+        type: "string"
+        example: "2020-10-24T16:44:19.878077+02:00"
+      driver:
+        $ref: "#/definitions/Driver"
+      truck:
+        type: "object"
+      cargo:
+        $ref: "#/definitions/Cargo"
+  Tractor:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "b62ae82e-d1cc-496a-98e9-761c29a45328"
+      model:
+        type: "string"
+        example: "Mercedes"
+  Trailer:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "b62ae82e-d1cc-496a-98e9-761c29a45328"
+      maxWeight:
+        type: "number"
+        example: "70.5"
+      model:
+        type: "string"
+        example: "Renault"
+  Truck:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "b62ae82e-d1cc-496a-98e9-761c29a45328"
+      label:
+        type: "string"
+        example: "Hell Dragon"
+      tractor:
+        $ref: "#/definitions/Tractor"
