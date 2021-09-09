@@ -1,6 +1,9 @@
 # Author :
 - GHONEIM Osama
 
+## Context
+Créer un api pour une compagnie de fret afin de gérer son flotte.
+
 ## Pré-requis :
 - Avoir un serveur Postgresql pré-installer [Les informations d'authentification à la base de données se trouvent dans le fichier **/src/main/resources/application.properties**]
 - JDK version **11**
