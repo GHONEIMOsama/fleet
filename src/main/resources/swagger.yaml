@@ -9,13 +9,12 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "petstore.swagger.io"
-basePath: "/v2"
+host: "localhost:8081"
+basePath: "/"
 tags:
 - name: "cargo"
   description: "Everything about your Cargo"
 schemes:
-- "https"
 - "http"
 paths:
   /cargoes:
@@ -90,8 +89,6 @@ definitions:
       weight:
         type: "number"
         example: 50
-      expedition:
-        $ref: "#/definitions/Expedition"
   Driver:
     type: "object"
     properties:
@@ -148,3 +145,5 @@ definitions:
         example: "Hell Dragon"
       tractor:
         $ref: "#/definitions/Tractor"
+      trailer:
+        $ref: "#/definitions/Trailer"
